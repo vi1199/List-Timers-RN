@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 
-export const useCountdown = timerDate => {
+export const useCountdown = (timerDate: number) => {
   const timerInMill = timerDate - new Date().getTime();
 
   const [countDown, setCountDown] = useState(timerInMill);

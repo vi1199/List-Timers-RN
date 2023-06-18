@@ -1,7 +1,10 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 
+export type timerObj = {
+  addedTime: string;
+};
 interface AppState {
-  timer: Array<object>;
+  timer: Array<timerObj>;
 }
 
 const initialState: AppState = {
@@ -15,7 +18,7 @@ export const appSlice = createSlice({
     setTimerAction: (state: AppState, action: PayloadAction<null | any>) => {
       state.timer = [...state.timer, action.payload];
     },
-    removeTimerAction: (state: AppState, action: PayloadAction) => {
+    removeTimerAction: (state: AppState, action: PayloadAction<timerObj>) => {
       state.timer = state.timer.filter(
         item => item.addedTime !== action.payload.addedTime,
       );

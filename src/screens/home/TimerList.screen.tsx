@@ -12,15 +12,19 @@ import {useCountdown} from '../../hooks/useCountdown';
 import {useAppDispatch, useAppSelector} from '../../redux/store.hooks';
 import {COLORS} from '../../utils/colors';
 import {useNavigation} from '@react-navigation/native';
-import {removeTimerAction, setTimerAction} from '../../reducers/app.slice';
+import {
+  removeTimerAction,
+  setTimerAction,
+  timerObj,
+} from '../../reducers/app.slice';
 
-const TimerItem = ({item, index}) => {
+const TimerItem = ({item}: any) => {
   const dispatch = useAppDispatch();
 
   const removeTimer = () => {
-    dispatch(removeTimerAction(item, index));
+    dispatch(removeTimerAction(item));
   };
-  const [hours, minutes, seconds] = useCountdown(item.addedTime);
+  const [hours, minutes, seconds] = useCountdown(parseInt(item.addedTime));
   return (
     <View style={styles.timerItem}>
       <Text style={{fontSize: 12}}>
@@ -47,8 +51,8 @@ export const TimerList = () => {
     );
   };
 
-  const renderItem = ({item, index}) => {
-    return <TimerItem item={item} index={index} />;
+  const renderItem = ({item}: any) => {
+    return <TimerItem item={item} />;
   };
   return (
     <FlatList
