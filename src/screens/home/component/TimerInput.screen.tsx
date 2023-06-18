@@ -5,11 +5,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {CountdownStartCTA} from './CountdownStartCTA';
 import {COLORS} from '../../../utils/colors';
-import {TimerInput} from './component/TimerInput';
-import {GetTime} from './component/GetTime';
-import {useEffect, useState} from 'react';
+import {useState} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {routes} from '../../../nav/screens';
 import {useAppDispatch} from '../../../redux/store.hooks';
