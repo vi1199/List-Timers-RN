@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Home} from './component/TimerInput.screen';
 import {
   FlatList,
@@ -18,13 +18,12 @@ import {
   timerObj,
 } from '../../reducers/app.slice';
 
-const TimerItem = ({item}: any) => {
+const TimerItem = ({item, timer}: any) => {
   const dispatch = useAppDispatch();
-
   const removeTimer = () => {
     dispatch(removeTimerAction(item));
   };
-  const [hours, minutes, seconds] = useCountdown(parseInt(item.addedTime));
+  const [hours, minutes, seconds] = useCountdown(parseInt(timer));
   return (
     <View style={styles.timerItem}>
       <Text style={{fontSize: 12}}>
@@ -37,7 +36,7 @@ const TimerItem = ({item}: any) => {
   );
 };
 
-export const TimerList = () => {
+export const TimerList = ({route}) => {
   const timer = useAppSelector(timer => timer.appSlice.timer);
   const navigation = useNavigation();
 
@@ -52,7 +51,7 @@ export const TimerList = () => {
   };
 
   const renderItem = ({item}: any) => {
-    return <TimerItem item={item} />;
+    return <TimerItem item={item} timer={route.params.timer} />;
   };
   return (
     <FlatList
