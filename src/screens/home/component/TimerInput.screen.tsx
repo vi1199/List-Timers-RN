@@ -24,14 +24,14 @@ export const Home = () => {
   const secInMill = parseInt(sec) * 1000;
   const todayday = new Date().getTime();
 
-  const calculatedTime = minutesInMill + secInMill || 0;
+  const calculatedTime = todayday + minutesInMill + secInMill;
 
   const onPressButton = () => {
-    dispatch(setTimerAction({addedTime: todayday + calculatedTime}));
+    dispatch(setTimerAction({addedTime: calculatedTime}));
     setSec('');
     setMin('');
     setHour('');
-    navigation.navigate(routes.TimerList);
+    navigation.navigate(routes.TimerList, {timer: calculatedTime});
   };
   return (
     <View style={styles.container}>
