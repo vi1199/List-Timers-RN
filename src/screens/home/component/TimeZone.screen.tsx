@@ -4,36 +4,36 @@ import moment from 'moment-timezone';
 import {useEffect, useState} from 'react';
 
 export function TimeZone() {
-  const [dt, setDt] = useState(new Date().toLocaleString());
-  const [zone, setZone] = useState(false);
-
-  const currentZone = moment.tz('Asia/Kolkata').format('YYYY-MM-DD HH:mm:ss');
-  const PstZone = moment
-    .tz('America/Los_Angeles')
-    .format('YYYY-MM-DD HH:mm:ss');
+  const [dt, setDt] = useState('');
+  const [zone, setZone] = useState('Asia/Kolkata');
 
   useEffect(() => {
-    let secTimer = setInterval(() => {
-      setDt(!zone ? currentZone : PstZone);
-    }, 1000);
+    const id = setInterval(startTime, 1000);
+    return () => clearInterval(id);
+  }, [zone]);
 
-    return () => clearInterval(secTimer);
-  }, [currentZone, PstZone, zone]);
-
+  function startTime() {
+    const inTime = moment.tz(zone).format('YYYY-MM-DD hh:mm:ss a');
+    setDt(inTime);
+  }
   return (
     <View>
       <View style={styles.container}>
-        <Text style={{fontSize: 14}}>
-          Internet Time : {!zone ? 'IST' : 'PST'}
-        </Text>
+        <Text style={{fontSize: 14}}>Internet Time : {zone}</Text>
         <Text style={{fontSize: 14, fontWeight: '800', textAlign: 'center'}}>
           {dt}
         </Text>
       </View>
-      <TouchableOpacity style={styles.toggle} onPress={() => setZone(!zone)}>
-        <Text style={{fontSize: 20, color: COLORS.white}}>
-          {'IST' + '⇋' + 'PST'}
-        </Text>
+      <TouchableOpacity
+        style={styles.toggle}
+        onPress={() => setZone('Asia/Kolkata')}>
+        <Text style={{fontSize: 20, color: COLORS.white}}>{'IST'}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.toggle}
+        onPress={() => setZone('America/Los_Angeles')}>
+        <Text style={{fontSize: 20, color: COLORS.white}}>{'PST'}</Text>
       </TouchableOpacity>
     </View>
   );
